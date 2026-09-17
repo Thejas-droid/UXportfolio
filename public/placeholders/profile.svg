@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="720" viewBox="0 0 600 720">
+  <rect width="600" height="720" fill="#e9e5de"/>
+  <rect x="28" y="28" width="544" height="664" rx="18" fill="none" stroke="#b2aaa0" stroke-width="3" stroke-dasharray="12 12"/>
+  <circle cx="300.0" cy="244.8" r="64.8" fill="#c9c0b4"/>
+  <path d="M 210.0 410.4 Q 300.0 230.4 390.0 410.4" fill="#c9c0b4"/>
+  <text x="50%" y="72%" text-anchor="middle" font-family="Arial,sans-serif" font-size="28.8" font-weight="bold" fill="#433f3a">YOUR PHOTO</text>
+  <text x="50%" y="81%" text-anchor="middle" font-family="Arial,sans-serif" font-size="14.4" fill="#665e55">Replace profile.svg</text>
+</svg>
