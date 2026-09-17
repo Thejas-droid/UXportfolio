@@ -1,36 +1,32 @@
-# ── Build output ─────────────────────────────────────────────
+# Installed dependencies and generated output
+node_modules/
 dist/
 dist-ssr/
+.netlify/
 
-# ── Dependencies ──────────────────────────────────────────────
-node_modules/
-
-# ── Environment / secrets ─────────────────────────────────────
+# Local environment values
 .env
-.env.local
-.env.*.local
+.env.*
+!.env.example
 
-# ── Logs ──────────────────────────────────────────────────────
-logs/
+# Development artifacts and tool caches
+tmp/
+.analysis/
+.claude/
+.codex/
+.agents/
+.checks/
+playwright-report/
+test-results/
+__pycache__/
+*.pyc
 *.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
+logs/
 
-# ── OS / Editor artefacts ─────────────────────────────────────
+# Editor and operating-system files
 .DS_Store
 Thumbs.db
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
 .idea/
-.vscode/*
-!.vscode/extensions.json
-
-# ── Misc ──────────────────────────────────────────────────────
+.vscode/
 *.local
-build_err.log
+*.sw?

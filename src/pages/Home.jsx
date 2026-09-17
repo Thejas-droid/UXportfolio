@@ -4,15 +4,21 @@ import { AnimatePresence, motion } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
+  ArrowDown,
   ArrowUpRight,
+  CakeSlice,
+  Coffee,
   Download,
-  Github,
   Instagram,
   Linkedin,
   Mail,
+  PawPrint,
+  UtensilsCrossed,
 } from "lucide-react";
+import { SiBehance } from "react-icons/si";
 import { projects } from "../content/projects";
 import Journey from "../components/Journey";
+import SkillsStrip from "../components/SkillsStrip";
 import { useSeoMeta } from "../hooks/useSeoMeta";
 import { profile, emailHref, seoDescription } from "../content/profile";
 import ProfileLink from "../components/ProfileLink";
@@ -39,19 +45,12 @@ const navLinks = [
 ];
 
 const contactLinks = [
-  { label: "GitHub", href: profile.socials.github, Icon: Github },
+  { label: "Behance", href: profile.socials.behance, Icon: SiBehance },
   { label: "Instagram", href: profile.socials.instagram, Icon: Instagram },
   { label: "LinkedIn", href: profile.socials.linkedin, Icon: Linkedin },
   { label: "Email", href: emailHref, Icon: Mail },
 ];
 
-
-const clean = (value = "") =>
-  String(value)
-    .normalize("NFKD")
-    .replace(/[^\x20-\x7E]/g, "")
-    .replace(/\s+/g, " ")
-    .trim();
 
 function RollingText({ children }) {
   const letters = Array.from(String(children));
@@ -157,6 +156,23 @@ function SiteNav() {
   );
 }
 
+function ResumeLink() {
+  return (
+    <motion.a
+      className="top-resume"
+      href={profile.resumeUrl}
+      download="Sneha-Sunil-Resume.pdf"
+      aria-label="Download Sneha Sunil's resume (PDF)"
+      initial={{ opacity: 0, y: -18 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.7, delay: 0.2, ease: EASE }}
+    >
+      <RollingText>Resume</RollingText>
+      <span className="top-resume__icon" aria-hidden="true"><Download size={17} /></span>
+    </motion.a>
+  );
+}
+
 function HeroBio() {
   const wrapRef = useRef(null);
   const cardRef = useRef(null);
@@ -212,14 +228,17 @@ function HeroBio() {
           animate="show"
           variants={{ hidden: {}, show: { transition: { staggerChildren: 0.09, delayChildren: 0.12 } } }}
         >
-          <motion.img src="/template/hero-star.png" alt="" className="hero-screen__star" variants={{ hidden: { opacity: 0, y: 30 }, show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: EASE } } }} />
+          <motion.img src="/images/hero-star.png" alt="" className="hero-screen__star" variants={{ hidden: { opacity: 0, y: 30 }, show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: EASE } } }} />
           <motion.h1 variants={{ hidden: { opacity: 0, y: 30 }, show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: EASE } } }}>
             {profile.heroLines.map((line) => <span key={line}>{line}</span>)}
           </motion.h1>
-          <motion.img src="/template/hero-bolt.png" alt="" className="hero-screen__bolt" variants={{ hidden: { opacity: 0, y: 30, rotate: 16 }, show: { opacity: 1, y: 0, rotate: 16, transition: { duration: 0.8, ease: EASE } } }} />
+          <motion.img src="/images/hero-bolt.png" alt="" className="hero-screen__bolt" variants={{ hidden: { opacity: 0, y: 30, rotate: 16 }, show: { opacity: 1, y: 0, rotate: 16, transition: { duration: 0.8, ease: EASE } } }} />
           <div className="hero-screen__meta">
-            <motion.span initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.55, ease: EASE }}>{"\u00A9"}{new Date().getFullYear()}</motion.span>
-            <motion.span initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.62, ease: EASE }}>{profile.name.toUpperCase()}</motion.span>
+            <motion.a className="hero-scroll" href="#about" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.55, ease: EASE }}>
+              <span className="hero-scroll__icon" aria-hidden="true"><ArrowDown size={20} strokeWidth={1.5} /></span>
+              <span className="hero-scroll__label">Scroll to<br />explore</span>
+            </motion.a>
+            <motion.span className="hero-screen__name" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.62, ease: EASE }}>{profile.name.toUpperCase()}</motion.span>
           </div>
         </motion.div>
 
@@ -231,11 +250,12 @@ function HeroBio() {
             </p>
           </div>
           <div className="bio-screen__right">
-            <p>
-              {profile.about}
-            </p>
+            <span className="bio-screen__eyebrow">/How I work</span>
+            <h3>{profile.aboutLead}</h3>
+            <p className="bio-screen__summary">{profile.about}</p>
+            <p>{profile.aboutDetail}</p>
             <a className="mp-pill mp-pill-dark" href="#contact">
-              Get Started
+              Let's work together
               <CtaArrow />
             </a>
           </div>
@@ -313,91 +333,51 @@ function Services() {
 
 function Projects() {
   const featured = projects.slice(0, 4);
+  const artworkIcons = { pet: PawPrint, bakery: CakeSlice, cafe: Coffee, restaurant: UtensilsCrossed };
   return (
     <section className="works" id="works">
       <div className="section-wrap">
         <div className="section-title-row" data-reveal="split">
           <h2>Featured Projects</h2>
-          <a className="mp-pill mp-pill-light" href="#works">
-            View All Work
-            <CtaArrow />
-          </a>
         </div>
         <div className="works-grid" data-reveal-stagger="cards">
-          {featured.map((project) => (
-            <ProfileLink className="work-card" key={project.slug} href={project.demo || project.link} target={project.demo || project.link ? "_blank" : undefined} rel={project.demo || project.link ? "noreferrer" : undefined}>
-              <div className="work-card__image">
-                <img src={project.image} alt={`${clean(project.title)} preview`} loading="lazy" />
-              </div>
-              <h3>{clean(project.title)}</h3>
-              <p>{project.tech.slice(0, 3).map(clean).join(" / ")}</p>
-            </ProfileLink>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-
-function TemplateLibrary() {
-  const templates = profile.templates;
-
-  return (
-    <section className="templates" id="templates">
-      <div className="section-wrap templates__grid">
-        <div className="templates__copy" data-reveal="title">
-          <span>/Template archive</span>
-          <h2>Website Templates</h2>
-          <p>[Add a description of your templates, experiments, or other work.]</p>
-
-        </div>
-        <div className="templates__list" data-reveal-stagger="templates">
-          {templates.map((template, index) => (
-            <ProfileLink key={template.name} href={template.href} target="_blank" rel="noreferrer">
-              <span>{String(index + 1).padStart(2, "0")}</span>
-              <strong>{template.name.replaceAll("-", " ")}</strong>
-              <ArrowUpRight size={22} aria-hidden="true" />
-            </ProfileLink>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-function Testimonials() {
-  const proof = profile.testimonials;
-
-  return (
-    <section className="testimonials">
-      <div className="section-wrap">
-        <h2 data-reveal="title">Testimonials</h2>
-        <div className="testimonial-grid" data-reveal-stagger="proof">
-          {proof.map((item) => (
-            <figure key={item.name}>
-              <blockquote>{item.quote}</blockquote>
-              <figcaption>
-                <span>{item.name.slice(0, 1)}</span>
-                <div>
-                  <strong>{item.name}</strong>
-                  <small>{item.role}</small>
+          {featured.map((project, index) => {
+            const href = project.demo || project.link;
+            const Card = href ? "a" : "article";
+            const Icon = artworkIcons[project.icon] || PawPrint;
+            return (
+              <Card className="work-card" key={project.slug} {...(href ? { href, target: "_blank", rel: "noreferrer" } : {})}>
+                <div className={`work-card__image${project.image ? "" : ` work-card__placeholder work-card__placeholder--${project.icon}`}`}>
+                  {project.image ? (
+                    <img src={project.image} alt={`${project.title} preview`} loading="lazy" />
+                  ) : (
+                    <>
+                      <span className="work-card__number">/{String(index + 1).padStart(2, "0")}</span>
+                      <Icon className="work-card__symbol" strokeWidth={1} aria-hidden="true" />
+                      <span className="work-card__category">{project.category}</span>
+                    </>
+                  )}
                 </div>
-              </figcaption>
-            </figure>
-          ))}
+                <h3>{project.title}</h3>
+                <p className="work-card__tags">{project.tech.slice(0, 3).join(" / ")}</p>
+                <p className="work-card__description">{project.description}</p>
+              </Card>
+            );
+          })}
         </div>
       </div>
     </section>
   );
 }
+
 
 function Contact() {
   const [status, setStatus] = useState("idle");
+  const [draftHref, setDraftHref] = useState("");
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
-    const form = event.currentTarget;
-    const formData = new FormData(form);
+    const formData = new FormData(event.currentTarget);
     const name = String(formData.get("name") || "").trim();
     const email = String(formData.get("email") || "").trim();
     const message = String(formData.get("message") || "").trim();
@@ -407,52 +387,13 @@ function Contact() {
       return;
     }
 
-    const subject = `[${profile.name}] Portfolio inquiry from ${name}`;
-    const accessKey = import.meta.env.VITE_WEB3FORMS_KEY;
-    setStatus("sending");
-
-    if (!accessKey && !profile.email) {
-      setStatus("unavailable");
-      return;
-    }
-
-    if (!accessKey) {
-      const body = `Name: ${name}\nEmail: ${email}\n\n${message}`;
-      window.location.href = `mailto:${profile.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-      setStatus("draft");
-      return;
-    }
-
-    try {
-      const payload = new FormData();
-      payload.append("access_key", accessKey);
-      payload.append("name", name);
-      payload.append("email", email);
-      payload.append("subject", subject);
-      payload.append("message", message);
-
-      const response = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        body: payload,
-      });
-      const result = await response.json();
-      if (!result.success) throw new Error(result.message || "Delivery failed");
-
-      form.reset();
-      setStatus("success");
-    } catch {
-      setStatus("error");
-    }
+    const subject = `Portfolio inquiry from ${name.replace(/[\r\n]+/g, " ")}`;
+    const body = `Hi Sneha,\r\n\r\n${message}\r\n\r\nFrom: ${name}\r\nReply email: ${email}`;
+    const href = `mailto:${profile.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    setDraftHref(href);
+    setStatus("draft");
+    window.location.href = href;
   };
-
-  const submitLabel = {
-    idle: "Submit",
-    unavailable: "Contact coming soon",
-    sending: "Sending",
-    success: "Sent",
-    draft: "Email Draft",
-    error: "Retry",
-  }[status];
 
   return (
     <section className="contact" id="contact">
@@ -468,20 +409,16 @@ function Contact() {
             ))}
           </div>
         </div>
-        <form onSubmit={handleSubmit}>
-          <label>Name<input name="name" placeholder="Enter your name" required /></label>
-          <label>Email<input name="email" type="email" placeholder="Enter your email" required /></label>
+        <form onSubmit={handleSubmit} onInput={() => setStatus("idle")}>
+          <label>Name<input name="name" autoComplete="name" placeholder="Enter your name" maxLength={120} required /></label>
+          <label>Email<input name="email" type="email" autoComplete="email" placeholder="Enter your email" required /></label>
           <label>Your Project<textarea name="message" rows={4} placeholder="Tell me about your project" required /></label>
-          <button type="submit" disabled={status === "sending" || (!profile.email && !import.meta.env.VITE_WEB3FORMS_KEY)}><RollingText>{!profile.email && !import.meta.env.VITE_WEB3FORMS_KEY ? "Contact coming soon" : submitLabel}</RollingText></button>
-          {!profile.email && !import.meta.env.VITE_WEB3FORMS_KEY && <p className="contact__status" role="status">Contact details coming soon.</p>}
-          {status !== "idle" && status !== "sending" && (
-            <div className={`contact__status contact__status--${status}`} role="status">
-              {status === "unavailable" && "Contact details coming soon. Your message has not been sent."}
-              {status === "success" && "Message sent."}
-              {status === "draft" && "Email draft opened."}
-              {status === "error" && "Delivery failed. Try again or use the email link."}
-            </div>
-          )}
+          <button type="submit"><RollingText>Send</RollingText></button>
+          <div className={`contact__status contact__status--${status}`} role="status">
+            {/* {status === "idle" && "Opens your email app with your message filled in."} */}
+            {status === "draft" && <>Your draft is ready to send from your email app. <a href={draftHref}>Open draft again</a></>}
+            {status === "error" && "Please add your name, email, and a message."}
+          </div>
         </form>
       </div>
     </section>
@@ -500,14 +437,14 @@ function SiteFooter() {
         </div>
         <div className="footer__contact">
           <p>/Contact</p>
-          <ProfileLink className="footer__mail" href={emailHref}>{profile.email || profile.emailPlaceholder}</ProfileLink>
+          <ProfileLink className="footer__mail" href={emailHref}>{profile.email}</ProfileLink>
           <div className="footer__actions">
-            <ProfileLink className="footer__resume" href={profile.resumeUrl} download>
-              <RollingText>{profile.resumeUrl ? "Resume" : "Resume coming soon"}</RollingText>
+            <ProfileLink className="footer__resume" href={profile.resumeUrl} download="Sneha-Sunil-Resume.pdf">
+              <RollingText>{"Resume"}</RollingText>
               <span className="footer__action-icon" aria-hidden="true"><Download size={15} /></span>
             </ProfileLink>
-            <a className="footer__external" href="#templates">
-              <RollingText>Templates</RollingText>
+            <a className="footer__external" href={profile.socials.behance} target="_blank" rel="noreferrer">
+              <RollingText>Behance</RollingText>
               <span className="footer__action-icon" aria-hidden="true"><ArrowUpRight size={15} /></span>
             </a>
           </div>
@@ -523,7 +460,7 @@ function Home() {
   useSeoMeta({
     title: profile.name,
     description: seoDescription,
-    path: location.pathname,
+    path: "/",
   });
 
   useEffect(() => {
@@ -567,10 +504,8 @@ function Home() {
       const groupFrom = {
         rows: { autoAlpha: 0, x: -28, filter: "blur(4px)" },
         cards: { autoAlpha: 0, y: 44, scale: 0.985, filter: "blur(7px)" },
-        proof: { autoAlpha: 0, y: 30, scale: 0.98, filter: "blur(6px)" },
         contact: { autoAlpha: 0, y: 42, filter: "blur(8px)" },
         footer: { autoAlpha: 0, y: 34, filter: "blur(6px)" },
-        templates: { autoAlpha: 0, y: 22, filter: "blur(5px)" },
       };
 
       gsap.utils.toArray("[data-reveal-stagger]").forEach((group) => {
@@ -607,13 +542,13 @@ function Home() {
     <>
       <a className="skip-link" href="#about">Skip to content</a>
       <SiteNav />
+      <ResumeLink />
       <main>
         <HeroBio />
         <QuoteSection />
+        <SkillsStrip />
         <Services />
         <Projects />
-        {/* <TemplateLibrary /> */}
-        {/* <Testimonials /> */}
         <Journey />
         <Contact />
       </main>

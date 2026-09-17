@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
-  <rect width="1200" height="630" fill="#e9e5de"/>
-  <rect x="28" y="28" width="1144" height="574" rx="18" fill="none" stroke="#b2aaa0" stroke-width="3" stroke-dasharray="12 12"/>
-  <circle cx="600.0" cy="214.20000000000002" r="56.699999999999996" fill="#c9c0b4"/>
-  <path d="M 420.0 359.09999999999997 Q 600.0 201.6 780.0 359.09999999999997" fill="#c9c0b4"/>
-  <text x="50%" y="72%" text-anchor="middle" font-family="Arial,sans-serif" font-size="57.6" font-weight="bold" fill="#433f3a">THEJAS S</text>
-  <text x="50%" y="81%" text-anchor="middle" font-family="Arial,sans-serif" font-size="28.8" fill="#665e55">Software Developer — social preview</text>
-</svg>

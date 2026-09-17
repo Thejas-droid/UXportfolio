@@ -1,5 +1,5 @@
 {
-  "name": "portfolio",
+  "name": "sneha-sunil-portfolio",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -10,17 +10,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@emotion/react": "^11.14.0",
-    "@emotion/styled": "^11.14.0",
-    "@vercel/analytics": "^1.5.0",
-    "emailjs-com": "^3.2.0",
     "framer-motion": "^12.12.2",
     "gsap": "^3.15.0",
+    "lenis": "1.3.26",
     "lucide-react": "^0.511.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-icons": "^5.5.0",
-    "react-intersection-observer": "^9.16.0",
     "react-router-dom": "^6.30.0",
     "vite-plugin-pwa": "^1.0.0"
   },
@@ -35,9 +31,11 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^16.0.0",
-    "playwright": "^1.61.1",
     "postcss": "^8.5.8",
     "tailwindcss": "^3.4.19",
     "vite": "^6.3.5"
+  },
+  "engines": {
+    "node": ">=22"
   }
 }

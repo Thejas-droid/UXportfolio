@@ -1,0 +1,79 @@
+.skills-strip {
+  --skill-gap: 56px;
+  padding: 26px 0;
+  border-block: 1px solid rgba(17, 17, 17, 0.1);
+}
+
+.skills-strip__viewport {
+  overflow: hidden;
+  padding: 8px 0;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
+}
+
+.skills-strip__track {
+  display: flex;
+  width: max-content;
+  animation: skills-drift-left 90s linear infinite;
+  animation-play-state: paused;
+}
+
+.skills-strip__track--running { animation-play-state: running; }
+.skills-strip:has(:focus-visible) { outline: 2px solid var(--nv-ink); outline-offset: 5px; border-radius: 4px; }
+.skills-strip__viewport:focus-visible { outline: none; }
+.skills-strip__viewport:focus-visible .skills-strip__track { animation-play-state: paused; }
+
+.skills-strip__list {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: var(--skill-gap);
+  list-style: none;
+  margin: 0;
+  padding: 0 var(--skill-gap) 0 0;
+}
+
+.skills-strip__skill {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 12px;
+  color: rgba(17, 17, 17, 0.64);
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  transition: color 0.3s ease;
+}
+
+.skills-strip__skill > svg {
+  width: 25px;
+  height: 25px;
+  flex: 0 0 auto;
+  color: #111;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.skills-strip__skill:hover { color: #111; }
+.skills-strip__skill:hover > svg { transform: translateY(-2px) rotate(-6deg); }
+.skills-strip + .services { padding-top: 64px; }
+
+@keyframes skills-drift-left {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@media (max-width: 560px) {
+  .skills-strip { --skill-gap: 32px; padding: 20px 0; }
+  .skills-strip__skill { gap: 10px; font-size: 16px; }
+  .skills-strip__skill > svg { width: 22px; height: 22px; }
+  .skills-strip + .services { padding-top: 48px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skills-strip__viewport { -webkit-mask-image: none; mask-image: none; }
+  .skills-strip__track { width: 100%; animation: none !important; transform: none; }
+  .skills-strip__list { flex: 1; justify-content: center; flex-wrap: wrap; gap: 20px 28px; padding: 0 12px; }
+  .skills-strip__list[aria-hidden="true"] { display: none; }
+  .skills-strip__skill:hover > svg { transform: none; }
+}

@@ -112,8 +112,14 @@ export default function Journey() {
           invalidateOnRefresh: true,
         },
       })
-        .fromTo(progressRef.current, { scaleY: 0 }, { scaleY: 1, ease: "none" }, 0)
-        .fromTo(markerRef.current, { top: "0%" }, { top: "100%", ease: "none" }, 0);
+        .fromTo(progressRef.current, { scaleY: 0 }, { scaleY: 1, ease: "none", force3D: true }, 0)
+        // Translate instead of changing top so scrolling doesn't trigger layout.
+        // Recalculate the travel distance when ScrollTrigger refreshes on resize.
+        .fromTo(markerRef.current, { y: 0 }, {
+          y: () => trackRef.current.offsetHeight,
+          ease: "none",
+          force3D: true,
+        }, 0);
     }, sectionRef);
     return () => context.revert();
   }, [reduced]);
@@ -132,10 +138,13 @@ export default function Journey() {
             <div className="journey__progress" ref={progressRef} />
           </div>
           <div className="journey__marker" ref={markerRef} aria-hidden="true">
-            <motion.div
-              animate={active ? { rotate: [0, 360], borderRadius: shapes } : { rotate: 0, borderRadius: shapes[0] }}
-              transition={active ? { repeat: Infinity, duration: 4, ease: "linear" } : { duration: 0 }}
-            />
+            <div className="journey__marker-hover">
+              <motion.div
+                className="journey__marker-core"
+                animate={active ? { rotate: [0, 360], borderRadius: shapes } : { rotate: 0, borderRadius: shapes[0] }}
+                transition={active ? { repeat: Infinity, duration: 4, ease: "linear" } : { duration: 0 }}
+              />
+            </div>
           </div>
 
           <ol className="journey__entries">

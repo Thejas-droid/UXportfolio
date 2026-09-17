@@ -4,14 +4,6 @@
 
 @font-face {
   font-family: "Archivo";
-  src: url("/fonts/Archivo-Light.woff2") format("woff2");
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Archivo";
   src: url("/fonts/Archivo-Regular.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
@@ -58,72 +50,12 @@
   line-gap-override: 9.11%;
   size-adjust: 98.81%;
 }
-@font-face {
-  font-family: "Helvetica Now Display";
-  src: url("/fonts/HelveticaNowDisplay-Regular.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Helvetica Now Display";
-  src: url("/fonts/HelveticaNowDisplay-Medium.woff2") format("woff2");
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Helvetica Now Text";
-  src: url("/fonts/HelveticaNowText-Regular.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Helvetica Now Text";
-  src: url("/fonts/HelveticaNowText-Medium.woff2") format("woff2");
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Space Mono Local";
-  src: url("/fonts/SpaceMono-Regular.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
 :root {
   color-scheme: light;
   --nv-bg: #faf7f3;
   --nv-ink: oklch(0.145 0.006 260);
-  --nv-muted: oklch(0.42 0.018 260);
-  --nv-line: oklch(0.88 0.012 260);
-  --nv-panel: oklch(1 0 0);
   --nv-acid: oklch(0.86 0.22 134);
   --nv-blue: oklch(0.56 0.22 258);
-  --nv-coral: oklch(0.67 0.22 29);
-  --nv-charcoal: oklch(0.17 0.009 260);
-  --retro-bg: var(--nv-bg);
-  --retro-bg-alt: oklch(0.94 0.015 260);
-  --retro-fg: var(--nv-ink);
-  --retro-fg-dim: var(--nv-muted);
-  --retro-accent: var(--nv-blue);
-  --retro-accent-alt: var(--nv-coral);
-  --retro-border: var(--nv-line);
-  --retro-border-light: oklch(1 0 0);
-  --retro-border-dark: oklch(0.54 0.018 260);
-  --retro-panel: var(--nv-panel);
-  --retro-chrome: var(--nv-ink);
-  --retro-chrome-fg: var(--nv-bg);
-  --retro-link: var(--nv-blue);
-  --retro-visited: oklch(0.48 0.16 310);
-  --retro-glow: none;
 }
 
 * {
@@ -154,7 +86,7 @@ body::before {
   min-height: 100%;
   pointer-events: none;
   content: "";
-  background-image: url("/template/framer-grain.png");
+  background-image: url("/images/grain.png");
   background-size: 161px 161px;
   background-repeat: repeat;
   opacity: 0.04;
@@ -188,14 +120,4 @@ img {
 :focus-visible {
   outline: 3px solid var(--nv-blue);
   outline-offset: 3px;
-}
-
-.font-mono {
-  font-family: "Space Mono Local", Consolas, monospace;
-}
-
-.bevel-out,
-.bevel-in {
-  border: 1px solid var(--nv-line);
-  background: var(--nv-panel);
 }

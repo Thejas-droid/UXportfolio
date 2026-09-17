@@ -1,46 +1,48 @@
-# Thejas S — Software Developer
+# Sneha Sunil — UI/UX Designer
 
-Personal portfolio built with React and Vite. Name and role are confirmed; all other personal content is explicitly a placeholder.
+Sneha's portfolio of web and mobile design work, with an animated Journey timeline, skills marquee, downloadable resume, and contact form. Built with React, Vite, GSAP, Framer Motion, and Lenis.
 
-## Run locally
+## Development
+
+Use Node.js 22 or newer.
 
 ```sh
-npm install
+npm ci
 npm run dev
+```
+
+Before committing:
+
+```sh
 npm run lint
 npm run build
 ```
 
-## Personalize
+`npm run preview` serves the production build locally.
 
-| Content | Edit here |
+## Content
+
+| Content | File |
 | --- | --- |
-| Name, role, bio, location, email, social URLs, resume, services, testimonials, experiments | `src/content/profile.js` |
-| Project titles, descriptions, screenshots, technologies, source and demo links | `src/content/projects.js` |
-| Work and education dates | `src/content/timeline.js` |
-| Skills and certifications | `src/content/skills.js` |
-| Reading, learning, building | `src/content/currently.js` |
-| Optional personal page | `src/pages/Love.jsx` |
-| Privacy and terms drafts | `src/pages/Privacy.jsx`, `src/pages/Terms.jsx` |
+| Bio, services, social links, resume, and tagline | `src/content/profile.js` |
+| Project descriptions, images, and links | `src/content/projects.js` |
+| Work experience and education | `src/content/timeline.js` |
+| Skills | `src/content/skills.js` |
+| Main page and layout | `src/pages/Home.jsx`, `src/pages/HomePage.css` |
+| Portrait, decorative assets, and social preview | `public/images/` |
+| Project screenshots | `public/projects/` |
+| Downloadable resume | `public/resume/Sneha-Sunil-Resume.pdf` |
 
-## Replace images
+The contact form opens the visitor's email application with a draft addressed to Sneha. It includes the name, reply email, and message; the visitor sends it from their email application. No backend or email API key is required.
 
-All personal images are local SVG placeholders with visible labels:
+## Netlify deployment
 
-- `public/placeholders/profile.svg`: portrait used by both sides of the animated card (600 × 720).
-- `public/placeholders/project-1.svg` through `project-4.svg`: project previews (1200 × 800).
-- `public/placeholders/personal.svg`: optional personal page (1200 × 800).
-- `public/placeholders/social.svg`: social sharing preview (1200 × 630).
-- `public/favicon.svg`: new TS monogram.
+Connect this repository to Netlify. `netlify.toml` sets Node.js 22, the `npm run build` command, the `dist` publish folder, and client-side route handling.
 
-To use JPG, PNG, or WebP, add the file to `public/` and change the corresponding image path in `profile.js` or `projects.js`. Public URLs omit `public` (for example `/images/thejas.jpg`). Keep decorative stars, bolt, textures, and fonts in `public/template/` and `public/fonts/`; they are shared design assets, not personal photographs.
+The build uses Netlify's `URL` environment variable for canonical links, social-image URLs, and the sitemap. Choose the site name in Netlify; the code does not assume a domain is available. For a custom domain or a non-Netlify build, set `VITE_SITE_URL` to the confirmed full URL, then rebuild. A local build without a URL omits the canonical link and sitemap rather than publishing a guessed address.
 
-## Contact and resume
+The installed-app name and icons are configured in `public/site.webmanifest`. Vite generates the service worker; do not add a second registration script. Generated files, temporary screenshots, caches, and local environment files are ignored by Git.
 
-Unknown links are blank and visibly unavailable. Set `profile.email` to enable email drafts, or copy `.env.example` to `.env.local` and add your own `VITE_WEB3FORMS_KEY` for delivery. With neither configured, the form is disabled and never reports a sent message. Add your PDF to `public/Thejas-S-Resume.pdf` and set `profile.resumeUrl` to `/Thejas-S-Resume.pdf` to enable downloads.
+## Fonts and dependencies
 
-## Before publishing
-
-Replace placeholders, add your actual domain to `profile.siteUrl`, update static metadata and the Person schema in `index.html`, and add absolute URLs to `public/sitemap.xml` and its location to `public/robots.txt`. Replace the social SVG with a PNG/JPG for broad social crawler support; update `profile.socialImage` and both social image tags in `index.html`. The served PWA manifest is `public/site.webmanifest`; keep its source copy in `src/assets/site.webmanifest` in sync if edited. No domain, email, employer, qualification, or GitHub account has been guessed.
-
-The original software's MIT attribution remains in `LICENSE`. Copied design research under `.analysis/` is development history, is not part of the site, and is excluded from the build. Old personal resumes and project screenshots have been removed from public assets.
+The site uses the Archivo font. Its required license is included in `public/fonts/OFL.txt`. Third-party libraries retain their own licenses; the portfolio's personal content and branding identify Sneha Sunil.
