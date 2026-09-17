@@ -12,7 +12,7 @@ import {
   Mail,
 } from "lucide-react";
 import { projects } from "../content/projects";
-import { timeline } from "../content/timeline";
+import Journey from "../components/Journey";
 import { useSeoMeta } from "../hooks/useSeoMeta";
 import { profile, emailHref, seoDescription } from "../content/profile";
 import ProfileLink from "../components/ProfileLink";
@@ -391,38 +391,6 @@ function Testimonials() {
   );
 }
 
-function Thoughts() {
-  const cards = timeline.slice(0, 2).map((entry) => ({
-    date: clean(entry.year),
-    title: clean(entry.title),
-    description: clean(entry.description),
-  }));
-
-  return (
-    <section className="thoughts" id="timeline">
-      <div className="section-wrap">
-        <h2 data-reveal="title">My Journey</h2>
-        <div className="thought-grid" data-reveal-stagger="thoughts">
-          {cards.map((card) => (
-            <article className="thought-card" key={card.title}>
-              <span>{card.date}</span>
-              <h3>{card.title}</h3>
-              <p>{card.description}</p>
-            </article>
-          ))}
-          <article className="thought-card thought-card--cta">
-            <p>[Add a short note about your journey and work.]</p>
-            <a className="mp-pill mp-pill-light" href="#works">
-              View All Work
-              <CtaArrow />
-            </a>
-          </article>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 function Contact() {
   const [status, setStatus] = useState("idle");
 
@@ -600,7 +568,6 @@ function Home() {
         rows: { autoAlpha: 0, x: -28, filter: "blur(4px)" },
         cards: { autoAlpha: 0, y: 44, scale: 0.985, filter: "blur(7px)" },
         proof: { autoAlpha: 0, y: 30, scale: 0.98, filter: "blur(6px)" },
-        thoughts: { autoAlpha: 0, y: 36, scale: 0.985, filter: "blur(6px)" },
         contact: { autoAlpha: 0, y: 42, filter: "blur(8px)" },
         footer: { autoAlpha: 0, y: 34, filter: "blur(6px)" },
         templates: { autoAlpha: 0, y: 22, filter: "blur(5px)" },
@@ -645,9 +612,9 @@ function Home() {
         <QuoteSection />
         <Services />
         <Projects />
-        <TemplateLibrary />
-        <Testimonials />
-        <Thoughts />
+        {/* <TemplateLibrary /> */}
+        {/* <Testimonials /> */}
+        <Journey />
         <Contact />
       </main>
       <SiteFooter />
