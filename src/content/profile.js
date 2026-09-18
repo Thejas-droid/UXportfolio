@@ -11,7 +11,7 @@ export const profile = {
   statement: "I design products for people, not screens. Simple flows, thoughtful interactions, and clear experiences built around what users need and what makes the product better.",
   location: "Kerala, India",
   email: "snehasunilmm@gmail.com",
-  socials: { linkedin: "https://www.linkedin.com/in/snehasunilmm", instagram: "https://www.instagram.com/_snehaaaa____/", behance: "https://www.behance.net/snehasunilofficial" },
+  socials: { linkedin: "https://www.linkedin.com/in/snehasunilmm", instagram: "https://www.instagram.com/_____snehaaaa____?stkn=c2xydDFicnBhOG1z", behance: "https://www.behance.net/snehasunilofficial" },
   siteUrl: import.meta.env.VITE_SITE_URL || "",
   resumeUrl: "/resume/Sneha-Sunil-Resume.pdf",
   portrait: "/images/portrait.png",

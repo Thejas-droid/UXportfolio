@@ -74,10 +74,10 @@ function JourneyArtwork({ entry, index, active }) {
           animate={moving ? { rotate: [360, 0] } : { rotate: 0 }}
           transition={moving ? { repeat: Infinity, duration, ease: "linear" } : { duration: 0 }}
         >
-          <span className="journey__artwork-ring" />
+          {/* <span className="journey__artwork-ring" /> */}
           <Icon strokeWidth={1.1} />
-          <span className="journey__artwork-caption">{entry.artworkLabel}</span>
-          <span className="journey__artwork-number">{String(index + 1).padStart(2, "0")}</span>
+          {/* <span className="journey__artwork-caption">{entry.artworkLabel}</span> */}
+          {/* <span className="journey__artwork-number">{String(index + 1).padStart(2, "0")}</span> */}
         </motion.div>
       </motion.div>
     </motion.div>
